@@ -5,7 +5,7 @@
 <c:forEach items="${menus}" var="menu">
     <c:if test="${menu.type eq 'menu'}"><!-- 判断是否为menu，是menu才继续遍历 -->
         <li class="treeview">
-            <a href="${not empty menu.child ? '#' : menu.url}">
+            <a href="${pageContext.request.contextPath}${not empty menu.child ? '#' : menu.url}">
                 <c:if test="${not empty menu.child}">
                     <i class="fa fa-share"></i>
                     <span>${menu.name}</span>

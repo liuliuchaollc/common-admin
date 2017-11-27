@@ -6,6 +6,7 @@ import com.zmc.mapper.UserMapper;
 import com.zmc.service.ResourceService;
 import com.zmc.web.bind.annotation.Log;
 import com.zmc.web.bind.handler.LogType;
+
 import org.apache.shiro.authz.permission.WildcardPermission;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.cache.annotation.Cacheable;
@@ -93,4 +94,19 @@ public class ResourceServiceImpl implements ResourceService {
         }
         return false;
     }
+
+    @Log(type = LogType.UPDATE,operation = "更新资源")
+	public Boolean updateResource(Resource resource) {
+    	try {
+            Integer result = resourceMapper.updateResource(resource);
+            if (result > 0){
+                return true;
+            }else {
+                return false;
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+            return false;
+        }
+	}
 }

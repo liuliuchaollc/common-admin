@@ -12,4 +12,5 @@ public interface ResourceMapper {
     List<Resource> findAllResources()throws Exception;
     Integer deleteResourceById(Long id)throws Exception;
     List<Resource> findResourceByRoleId(Long id)throws Exception;
+    Integer updateResource(Resource resource)throws Exception;
 }

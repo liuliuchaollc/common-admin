@@ -1,24 +1,29 @@
 package com.zmc.web.controller;
 
-import com.zmc.common.entity.Resource;
-import com.zmc.common.entity.Response;
-import com.zmc.common.entity.User;
-import com.zmc.common.vo.Menu;
-import com.zmc.common.vo.Node;
-import com.zmc.service.ResourceService;
-import com.zmc.service.RoleService;
-import com.zmc.utils.MenuHelper;
-import com.zmc.web.bind.annotation.CurrentUser;
-import org.apache.commons.lang3.StringUtils;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Controller;
-import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.*;
-
-import javax.servlet.http.HttpServletRequest;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
+
+import javax.servlet.http.HttpServletRequest;
+
+import org.apache.shiro.SecurityUtils;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
+import org.springframework.util.StringUtils;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.ResponseBody;
+
+import com.zmc.common.entity.Resource;
+import com.zmc.common.entity.Response;
+import com.zmc.common.entity.User;
+import com.zmc.common.vo.Node;
+import com.zmc.service.ResourceService;
+import com.zmc.service.RoleService;
+import com.zmc.web.bind.annotation.CurrentUser;
 
 /**
  * Created by zhongmc on 2017/7/19.
@@ -40,6 +45,9 @@ public class ResourceController {
     @ResponseBody
     public List<Resource> getAllMenu() throws Exception {
         List<Resource> resources = resourceService.findAllResources();
+        /*for(Resource one:resources){
+        	one.setUrl("");
+        }*/
         //List<Menu> menus = MenuHelper.buildMenuTree(resources);
         return resources;
     }
@@ -115,7 +123,28 @@ public class ResourceController {
             return response.failure("添加失败");
         }
     }
+    @RequestMapping(value = "/{id}/update")
+    @ResponseBody
+    public Response resourceUpdate(@PathVariable String id,Resource resource){
+        Response response = new Response();
+        if (StringUtils.isEmpty(resource.getName())){
+            return response.failure("资源名称不能为空");
+        }
+        if (StringUtils.isEmpty(resource.getAvailable())){
+            return response.failure("请开启是否可用");
+        }
 
+        String username = (String) SecurityUtils.getSubject().getPrincipal();
+        resource.setUpdate_time(new Date());
+        resource.setUpdate_by(username);
+
+        Boolean result = resourceService.updateResource(resource);
+        if (result){
+            return response.success(resource);
+        }else {
+            return response.failure("更新失败");
+        }
+    }
     /**
      * resource删除
      * @param id
@@ -131,7 +160,7 @@ public class ResourceController {
             Long resourceId = Long.valueOf(id);
             List<Long> delId = new ArrayList<Long>();
             delId.add(resourceId);
-            if (StringUtils.isNotEmpty(child)){
+            if (!StringUtils.isEmpty(child)){
                 String[] split = child.split("[/]");
                 for (String s : split){
                     delId.add(Long.valueOf(s));

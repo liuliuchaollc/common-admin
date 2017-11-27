@@ -350,7 +350,7 @@
                     if (data.meta.success){
                         //添加成功
                         $("#add_modal").modal('hide');
-                        window.location = "sysuser/sysuser-view.html";
+                        window.location = "sysuser-view.html";
                     }else{
                         modalShow("#warn_modal",data.meta.message);
                     }

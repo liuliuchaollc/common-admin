@@ -4196,3 +4196,14 @@ Caused by: java.io.FileNotFoundException: class path resource [config/spring/app
 	at org.springframework.core.io.ClassPathResource.getInputStream(ClassPathResource.java:172)
 	at org.springframework.beans.factory.xml.XmlBeanDefinitionReader.loadBeanDefinitions(XmlBeanDefinitionReader.java:330)
 	... 43 more
+[INFO ][2017/11/20 14:29:54602][com.artofsolving.jodconverter.openoffice.connection.AbstractOpenOfficeConnection.connect(AbstractOpenOfficeConnection.java:77)] - connected
+ [ERROR][2017/11/20 14:29:54626][com.artofsolving.jodconverter.openoffice.connection.AbstractOpenOfficeConnection.disposing(AbstractOpenOfficeConnection.java:100)] - disconnected unexpectedly
+ [INFO ][2017/11/20 14:30:56579][com.artofsolving.jodconverter.openoffice.connection.AbstractOpenOfficeConnection.connect(AbstractOpenOfficeConnection.java:77)] - connected
+ [INFO ][2017/11/20 14:30:58803][com.artofsolving.jodconverter.openoffice.connection.AbstractOpenOfficeConnection.disposing(AbstractOpenOfficeConnection.java:98)] - disconnected
+ [INFO ][2017/11/20 14:33:30872][com.artofsolving.jodconverter.openoffice.connection.AbstractOpenOfficeConnection.connect(AbstractOpenOfficeConnection.java:77)] - connected
+ [ERROR][2017/11/20 14:33:30894][com.artofsolving.jodconverter.openoffice.connection.AbstractOpenOfficeConnection.disposing(AbstractOpenOfficeConnection.java:100)] - disconnected unexpectedly
+ [INFO ][2017/11/20 14:34:04141][com.artofsolving.jodconverter.openoffice.connection.AbstractOpenOfficeConnection.connect(AbstractOpenOfficeConnection.java:77)] - connected
+ [ERROR][2017/11/20 14:34:04689][com.artofsolving.jodconverter.openoffice.connection.AbstractOpenOfficeConnection.disposing(AbstractOpenOfficeConnection.java:100)] - disconnected unexpectedly
+ [INFO ][2017/11/20 14:35:00824][com.artofsolving.jodconverter.openoffice.connection.AbstractOpenOfficeConnection.connect(AbstractOpenOfficeConnection.java:77)] - connected
+ [INFO ][2017/11/20 14:35:03434][com.artofsolving.jodconverter.openoffice.connection.AbstractOpenOfficeConnection.disposing(AbstractOpenOfficeConnection.java:98)] - disconnected
+ 

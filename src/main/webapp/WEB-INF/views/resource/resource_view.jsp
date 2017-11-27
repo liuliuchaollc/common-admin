@@ -74,7 +74,7 @@
 
         .ztree div.diy {
             height: 100%;
-            width: 20%;
+            width: 17%;
             line-height: 30px;
             text-indent: 10px;
             border-top: 1px dotted #ccc;
@@ -190,7 +190,7 @@
                         </div>
                         <div class="form-group">
                             <label>权限字符串</label>
-                            <input type="text" name="permission" class="form-control" placeholder="资源地址（选填）">
+                            <input type="text" name="permission" class="form-control" placeholder="权限字符串（必填）">
                         </div>
                         <div class="form-group">
                             <label>是否可用</label>
@@ -229,17 +229,25 @@
                     <div class="box-body">
                         <div class="form-group">
                             <label>编号</label>
-                            <input type="text" name="id" class="form-control" placeholder="部门编号（必填）" readonly>
+                            <input type="text" name="id" class="form-control" placeholder="资源编号（必填）" readonly>
                         </div>
                         <div class="form-group">
-                            <label>部门名称</label>
-                            <input type="text" name="name" class="form-control" placeholder="部门名称（必填）">
+                            <label>资源名称</label>
+                            <input type="text" name="name" class="form-control" placeholder="资源名称（必填）">
                         </div>
                         <div class="form-group">
-                            <label>部门描述</label>
-                            <input type="text" name="describe" class="form-control" placeholder="描述（选填）">
+                            <label>资源类型</label>
+                            <input type="text" name="type" class="form-control" placeholder="资源类型（必填）">
                         </div>
                         <div class="form-group">
+                            <label>资源地址</label>
+                            <input type="text" name="url" class="form-control" placeholder="资源地址（必填）">
+                        </div>
+                        <div class="form-group">
+                            <label>资源权限字符串</label>
+                            <input type="text" name="permission" class="form-control" placeholder="资源权限字符串（选填）">
+                        </div>
+                         <div class="form-group">
                             <label>是否可用</label>
                             <br>
                             <label>
@@ -351,14 +359,14 @@
             var data = getFormJson("#update_form");
             $.ajax({
                 type:"POST",
-                url:"organization/"+data.id+"/update",
+                url:"resource/"+data.id+"/update",
                 data:data,
                 dataType:"json",
                 success:function (data) {
                     if (data.meta.success){
                         //添加成功
                         $("#add_modal").modal('hide');
-                        window.location = "organization/organization-view.html";
+                        window.location = "resource/resource-view.html";
                     }else{
                         modalShow("#warn_modal",data.meta.message);
                     }
@@ -426,7 +434,7 @@
     function initAddModal(obj) {
         var parentName = $(obj).data("myname");
         var parentId = $(obj).data("myid");
-        var parentParentIds = $(obj).data("myparentids")+parentId;
+        var parentParentIds = $(obj).data("myparentids")+"/"+parentId;
         $("#parent_ids").val(parentParentIds);
         $("#parent_id").val(parentId);
         $("#parent_name").val(parentName);
@@ -462,6 +470,7 @@
         var icoObj = $("#" + treeNode.tId + "_ico");
         var spanObj = $("#" + treeNode.tId + "_span");
         aObj.attr('title', '');
+        aObj.removeAttr('href');
         aObj.append('<div class="diy swich"></div>');
         var div = $(liObj).find('div').eq(0);
         switchObj.remove();
@@ -476,6 +485,7 @@
         var corpCat = '<div title="' + treeNode.url + '">' + treeNode.url + '</div>';
         editStr += '<div class="diy">' + ((treeNode.url == '' || treeNode.url == null) ? '&nbsp;' : treeNode.url ) + '</div>';
         editStr += '<div class="diy">' + ((treeNode.permission == '' || treeNode.permission == null) ? '&nbsp;' : treeNode.permission ) + '</div>';
+        editStr += '<div class="diy">' + ((treeNode.available == 1) ? '是' : '否' ) + '</div>';
         editStr += '<div class="diy">' + formatHandle(treeNode) + '</div>';
         aObj.append(editStr);
     }
@@ -493,7 +503,7 @@
         $.fn.zTree.init($("#dataTree"), setting, zTreeNodes);
         //添加表头
         var li_head = ' <li class="head"><a><div class="diy">资源名称</div><div class="diy">资源类型</div><div class="diy">资源地址</div>' +
-            '<div class="diy">资源权限字符串</div><div class="diy">操作</div></a></li>';
+            '<div class="diy">资源权限字符串</div><div class="diy">资源是否启用</div><div class="diy">操作</div></a></li>';
         var rows = $("#dataTree").find('li');
         if (rows.length > 0) {
             rows.eq(0).before(li_head)
@@ -515,6 +525,7 @@
                    element.open = true;
                 });
                 allMenu = data;
+                
             },
             error: function (error) {
                 console.log("error");
@@ -539,6 +550,40 @@
         //初始化数据
         query();
     })
+    
+    
+    function buildUpdateModal(obj) {
+         var tds = $(obj).parents('a').find('div');
+        //给modal设置值
+        var inputs = $("#update_form input");
+        console.log(inputs)
+        $(inputs[0]).val($(obj).data('myid'));
+       // $(inputs[1]).val($(tds[0]).text());
+        
+        for (var i = 1; i < inputs.length-2; i++) {
+            //设置input text
+            $(inputs[i]).val($(tds[i-1]).text());
+        }
+        //设置input radio
+        //$(inputs[3]).prop("checked",false);
+        //$(inputs[4]).prop("checked",false);
+        console.log($(tds[4]).text());
+         if ($(tds[4]).text() == '是') {
+            //禁用
+            console.log("forbidden");
+            $(inputs[5]).prop('checked', 'checked');
+
+        } else {
+            console.log("opened");
+            $(inputs[6]).prop('checked', 'checked');
+        }
+        $('input[type="checkbox"].flat-red, input[type="radio"].flat-red').iCheck({
+            checkboxClass: 'icheckbox_flat-green',
+            radioClass: 'iradio_flat-green'
+        });  
+        $("#update_modal").modal('show');
+    }
+
 </script>
 
 </body>

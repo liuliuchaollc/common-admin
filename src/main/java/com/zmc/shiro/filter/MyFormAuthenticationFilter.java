@@ -14,8 +14,17 @@ public class MyFormAuthenticationFilter extends FormAuthenticationFilter {
     protected boolean onAccessDenied(ServletRequest request, ServletResponse response, Object mappedValue) throws Exception {
         if(request.getAttribute(getFailureKeyAttribute()) != null) {
             //如果验证码错误，直接放行，跳转到/  发现没登陆又回到login
+        	
+        	System.out.println(getUsername(request));
+        	System.out.println(getPassword(request));
             return true;
         }
         return super.onAccessDenied(request, response, mappedValue);
+    }
+    @Override
+    public void afterCompletion(ServletRequest request,
+    		ServletResponse response, Exception exception) throws Exception {
+    	// TODO Auto-generated method stub
+    	super.afterCompletion(request, response, exception);
     }
 }

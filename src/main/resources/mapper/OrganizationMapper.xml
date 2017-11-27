@@ -4,8 +4,8 @@
 
     <!-- 新增Organization -->
     <insert id="insertOrganization" parameterType="Organization">
-        INSERT INTO sys_organization(name,available,create_time,update_time,create_by,update_by)
-        VALUES (#{name},#{available},#{create_time},#{update_time},
+        INSERT INTO sys_organization(name,available,mydescribe,create_time,update_time,create_by,update_by)
+        VALUES (#{name},#{available},#{mydescribe},#{create_time},#{update_time},
                 #{create_by},#{update_by})
     </insert>
 
@@ -25,7 +25,6 @@
     <update id="updateOrganization" parameterType="Organization">
         UPDATE
         sys_organization
-        SET name = #{name},available=#{available},update_by = #{update_by},update_time=#{update_time}
-        WHERE id = #{id}
+        SET name = #{name},available=#{available},mydescribe=#{mydescribe},update_by = #{update_by},update_time=#{update_time} WHERE id = #{id}
     </update>
 </mapper>

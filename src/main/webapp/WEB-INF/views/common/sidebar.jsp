@@ -27,11 +27,11 @@
         <!-- sidebar menu: : style can be found in sidebar.less -->
         <ul class="sidebar-menu">
             <li class="header">功能菜单</li>
-            <%--<c:forEach items="${menus}" var="m">
+<%--             <c:forEach items="${menus}" var="m">
                 <li>
                     <a href="${m.url}"><i class="fa fa-circle-o text-red"></i> <span>${m.name}</span></a>
                 </li>
-            </c:forEach>--%>
+            </c:forEach> --%>
             <jsp:include page="recursive.jsp"/>
 
         </ul>

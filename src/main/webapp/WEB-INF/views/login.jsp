@@ -1,7 +1,14 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java"%>
+<%
+String path = request.getContextPath();
+String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.getServerPort()+path+"/";
+%>
+
 <!DOCTYPE html>
 <html>
 <head>
+
+<base href="<%=basePath%>"> 
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <title>Common-Admin</title>
@@ -56,7 +63,7 @@
                     </div>
                     <div class="col-lg-8">
                         <div class="form-group has-feedback">
-                            <img alt="如果看不清楚，请单击图片刷新！" onclick="javascript:$('.img').attr('src','/static/captcha');" class="pointer img" src="/static/captcha">
+                            <img alt="如果看不清楚，请单击图片刷新！" onclick="javascript:$('.img').attr('src','${pageContext.request.contextPath}/static/captcha');" class="pointer img" src="${pageContext.request.contextPath}/static/captcha">
                         </div>
                     </div>
                 </div>

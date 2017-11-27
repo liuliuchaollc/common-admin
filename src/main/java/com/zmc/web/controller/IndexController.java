@@ -2,10 +2,15 @@ package com.zmc.web.controller;
 
 
 import com.zmc.common.entity.Organization;
+import com.zmc.common.entity.Resource;
 import com.zmc.common.entity.User;
+import com.zmc.common.vo.Menu;
 import com.zmc.service.OrganizationService;
+import com.zmc.service.ResourceService;
 import com.zmc.service.UserService;
+import com.zmc.utils.MenuHelper;
 import com.zmc.web.bind.annotation.CurrentUser;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -25,13 +30,16 @@ public class IndexController {
     private UserService userService;
     @Autowired
     private OrganizationService organizationService;
+    
+    @Autowired
+    private ResourceService resourceService;
 
     /*@Log(type = LogType.QUERY,operation = "访问首页")*/
     @RequestMapping(value = "/",method = RequestMethod.GET)
     public String indexPage(@CurrentUser User currentUser, Model model) throws Exception {
-        /*List<Resource> lisi = resourceService.findWildResourcesByUsername(currentUser.getUsername());
+        List<Resource> lisi = resourceService.findWildResourcesByUsername(currentUser.getUsername());
         List<Menu> menus = MenuHelper.buildMenuTree(lisi);
-        model.addAttribute("menus",menus);*/
+        model.addAttribute("menus",menus);
         return "index";
     }
 

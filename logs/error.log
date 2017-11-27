@@ -2756,3 +2756,7 @@ Caused by: java.io.FileNotFoundException: class path resource [config/spring/app
 	at org.springframework.core.io.ClassPathResource.getInputStream(ClassPathResource.java:172)
 	at org.springframework.beans.factory.xml.XmlBeanDefinitionReader.loadBeanDefinitions(XmlBeanDefinitionReader.java:330)
 	... 43 more
+[ERROR][2017/11/20 14:29:54626][com.artofsolving.jodconverter.openoffice.connection.AbstractOpenOfficeConnection.disposing(AbstractOpenOfficeConnection.java:100)] - disconnected unexpectedly
+ [ERROR][2017/11/20 14:33:30894][com.artofsolving.jodconverter.openoffice.connection.AbstractOpenOfficeConnection.disposing(AbstractOpenOfficeConnection.java:100)] - disconnected unexpectedly
+ [ERROR][2017/11/20 14:34:04689][com.artofsolving.jodconverter.openoffice.connection.AbstractOpenOfficeConnection.disposing(AbstractOpenOfficeConnection.java:100)] - disconnected unexpectedly
+ 

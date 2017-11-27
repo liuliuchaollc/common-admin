@@ -28,4 +28,10 @@
         FROM sys_role_resource rr,sys_resource r
         WHERE rr.resource_id = r.id and rr.role_id = #{id};
     </select>
+    
+     <update id="updateResource" parameterType="Resource">
+        UPDATE
+        sys_resource
+        SET name = #{name},type=#{type},url=#{url},permission=#{permission},available=#{available},update_by = #{update_by},update_time=#{update_time} WHERE id = #{id}
+    </update>
 </mapper>

@@ -73,7 +73,7 @@
                                 <c:forEach items="${organizations}" var="organization">
                                     <tr>
                                         <td>${organization.name}</td>
-                                        <td>${organization.describe}</td>
+                                        <td>${organization.mydescribe}</td>
                                         <td>${organization.available}</td>
                                         <td>${organization.create_time}</td>
                                         <td>${organization.create_by}</td>
@@ -135,7 +135,7 @@
                         </div>
                         <div class="form-group">
                             <label>部门描述</label>
-                            <input type="text" name="describe" class="form-control" placeholder="描述（选填）">
+                            <input type="text" name="mydescribe" class="form-control" placeholder="描述（选填）">
                         </div>
                         <div class="form-group">
                             <label>是否可用</label>
@@ -182,7 +182,7 @@
                         </div>
                         <div class="form-group">
                             <label>部门描述</label>
-                            <input type="text" name="describe" class="form-control" placeholder="描述（选填）">
+                            <input type="text" name="mydescribe" class="form-control" placeholder="描述（选填）">
                         </div>
                         <div class="form-group">
                             <label>是否可用</label>

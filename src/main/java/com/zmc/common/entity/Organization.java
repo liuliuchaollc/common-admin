@@ -7,6 +7,11 @@ import com.zmc.common.BaseEntity;
  */
 public class Organization extends BaseEntity {
     /**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
+
+	/**
      * 名称
      */
     private String name;
@@ -21,7 +26,7 @@ public class Organization extends BaseEntity {
     /**
      * 描述
      */
-    private String describe;
+    private String mydescribe;
 
     public String getName() {
         return name;
@@ -39,16 +44,17 @@ public class Organization extends BaseEntity {
     public void setAvailable(Integer available) {
         this.available = available;
     }
+ 
 
-    public String getDescribe() {
-        return describe;
-    }
+    public String getMydescribe() {
+		return mydescribe;
+	}
 
-    public void setDescribe(String describe) {
-        this.describe = describe;
-    }
+	public void setMydescribe(String mydescribe) {
+		this.mydescribe = mydescribe;
+	}
 
-    @Override
+	@Override
     public String toString() {
         return "Organization{" +
                 "name='" + name + '\'' +
