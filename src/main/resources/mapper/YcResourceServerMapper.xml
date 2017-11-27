@@ -1,0 +1,84 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.zmc.mapper.YcResourceServersMapper">
+    <resultMap id="RoleWithBelongedUsers" type="YcResourceServer">
+        <id property="id" column="id" />
+        <result property="name" column="name" />
+        <result property="description" column="description" />
+        <result property="available" column="available" />
+        <result property="create_time" column="create_time" />
+        <result property="update_time" column="update_time" />
+        <result property="create_by" column="create_by" />
+        <result property="update_by" column="update_by" />
+        <!--<collection property="users" select=""/>-->
+    </resultMap>
+    <resultMap id="UserResult" type="User">
+        <id property="id" column="u_id"/>
+        <result property="username" column="username"/>
+        <result property="password" column="password"/>
+        <result property="email" column="email" />
+        <result property="phone" column="phone" />
+        <result property="salt" column="salt" />
+        <result property="lock" column="lock" />
+        <result property="create_time" column="u_create_time" />
+        <result property="update_time" column="u_update_time" />
+        <result property="create_by" column="u_create_by" />
+        <result property="update_by" column="u_update_by" />
+    </resultMap>
+    
+    
+    <!-- 新增role -->
+    <insert id="insertYcResource" parameterType="YcResourceServer">
+        INSERT INTO yc_resource_servers(name,description,available,ip,type,ostype,username,password,usedesc,create_time,update_time,create_by,update_by)
+        VALUES (#{name},#{description},#{available},#{ip},#{type},#{ostype},#{username},#{password},#{usedesc},#{create_time},#{update_time},#{create_by},#{update_by})
+    </insert>
+    
+    <!-- 删除 -->
+    <delete id="deleteYcResourceById" parameterType="long">
+        DELETE 
+        FROM yc_resource_servers
+        WHERE id = #{id}
+    </delete>
+    
+    <!-- find by id -->
+    <select id="findYcResourceById" parameterType="long" resultType="YcResourceServer">
+        select *  
+        FROM yc_resource_servers
+        WHERE id = #{id}
+    </select>
+    
+    <!-- 禁用角色 -->
+    <update id="forbidOrEnableYcResourceById">
+        UPDATE yc_resource_servers
+        SET available = #{code}
+        WHERE id = #{id}
+    </update>
+    
+    <!-- 获取所有的Role -->
+    <select id="findAllYcResources" resultType="YcResourceServer">
+        SELECT r.*
+        FROM yc_resource_servers r order by r.update_time desc
+    </select>
+
+    <!-- 更新角色 -->
+    <update id="updateYcResource" parameterType="YcResourceServer">
+        UPDATE yc_resource_servers
+        SET name = #{name},description = #{description},available = #{available},
+        ip = #{ip},type = #{type},ostype = #{ostype},username = #{username},password = #{password},usedesc = #{usedesc}
+                  ,update_by = #{update_by},update_time = #{update_time}
+        WHERE id = #{id}
+    </update>
+
+    <!-- 关联role和resource -->
+    <insert id="relateRoleAndResource">
+        INSERT INTO sys_role_resource(role_id,resource_id)
+        VALUES (#{roleId},#{resourceId})
+    </insert>
+
+    <!-- 取消关联role和resource -->
+    <delete id="unrelateRoleAndResource">
+        DELETE
+        FROM sys_role_resource
+        WHERE role_id = #{roleId} AND resource_id = #{resourceId}
+    </delete>
+</mapper>
